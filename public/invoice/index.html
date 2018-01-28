@@ -87,13 +87,13 @@
 
       $.ajax({
         method: 'GET',
-        url: '/api/customers/'
+        url: '/api/invoice'
       }).done(data => {
         const source = $("#template").html();
         const template = Handlebars.compile(source);
 
-        const rows = data.customers.map(customer => {
-          return template(customer);
+        const rows = data.invoices.map(invoice => {
+          return template(invoice);
         });
 
         $('#rows').html(rows.join());
