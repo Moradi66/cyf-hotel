@@ -30,6 +30,11 @@ app.get("/", function(req, res, next) {
   res.render("home");
 });
 
+//Render invoice page
+// app.get("/invoices", function(req, res, next) {
+// 	res.render("invoices");
+// })
+
 app.listen(SERVER_PORT, () => {
   console.info(`Server started at http://localhost:${SERVER_PORT}`);
 });
