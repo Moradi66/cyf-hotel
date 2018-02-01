@@ -19,7 +19,7 @@
           <tbody id="rows">
           {{#each objJson}}
             <tr>  
-              <th scope="row">{{ this.id }}</th>
+              <th scope="row"><a class="id-link" href="{{this.id}}">{{ this.id }}</a></th>
               <td>{{ this.title}}</td>
               <td>{{ this.firstname }}</td>
               <td>{{ this.surname }}</td>

@@ -36,7 +36,6 @@ app.get("/", function(req, res, next) {
 //Render customers page
 app.get('/customers', (req, res) => {
   const callbackFunction = (error, file) => {
-
     // we call .toString() to turn the file buffer to a String
     const fileData = file.toString();
     // we use JSON.parse to get an object out the String
@@ -48,6 +47,28 @@ app.get('/customers', (req, res) => {
   };
   fs.readFile(customersPath, callbackFunction);
 });
+
+//Render customers id page
+app.get('/customers/:id', (req,res,next) => {
+	fs.readFile(customersPath, (error,file) => {
+		const fileData = file.toString();
+    	const parsedFile = JSON.parse(fileData);
+    	res.render('customers', {objJson: parsedFile.filter(customer => customer.id === parseInt(req.params.id)) });
+	});
+});
+
+// Shoter code (customers + customers id pages)
+// app.get('/customers/:id?', (req,res,next) => {
+// 	fs.readFile(customersPath, (error,file) => {
+// 		const fileData = file.toString();
+//     	const parsedFile = JSON.parse(fileData);
+//     	if (req.params.id) {
+//     		res.render('customers', {objJson: parsedFile.filter(customer => customer.id === parseInt(req.params.id)) });
+//     	} else {
+//     		res.render('customers', {objJson: parsedFile});
+//     	};
+// 	});
+// });
 
 // Render invoice page
 app.get('/invoices', (req, res) => {
@@ -64,6 +85,8 @@ app.get('/invoices', (req, res) => {
   };
   fs.readFile(invoicesPath, callbackFunction);
 });
+
+			// PUT CODE FOR RENDERING INVOICE ID PAGE HERE
 
 
 app.listen(SERVER_PORT, () => {
