@@ -1,12 +1,11 @@
-<section class="invoices">
+<div class="container">
     <div class="row">
       <div class="col-10">
         <h1>Customers invoices</h1>
       </div>
-      <div class="col-2">
-        <button type="submit" class="btn btn-primary">Fetch invoices</button>
-      </div>
     </div>
+    <div class="row">
+      <div class="col">
         <table class="table">
           <thead>
             <tr>
@@ -18,21 +17,19 @@
               <th>Paid</th>
             </tr>
           </thead>
-          <tbody>
-              <!-- There go customers fetched information -->
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+          <tbody id="rows">
+          {{#each objJson}}
+            <tr>  
+              <th scope="row">{{ this.id }}</th>
+              <td>{{ this.reservationId}}</td>
+              <td>{{ this.total }}</td>
+              <td>{{ this.surcharges }}</td>
+              <td>{{ this.invoiceDateTime }}</td>
+              <td>{{ this.paid }}</td>
             </tr>
-
-         
-            
+          {{/each}}
           </tbody>
         </table>
       </div>
+    </div>
   </div>
-</section>

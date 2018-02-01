@@ -3,11 +3,14 @@ const SERVER_PORT = process.env.PORT || 8080;
 const express = require("express");
 const exphbs = require("express-handlebars");
 const bodyparser = require("body-parser");
+const fs = require("fs");
 
 const apiRouter = require("./api");
 
 const app = express();
 const router = express.Router();
+const invoicesPath = __dirname + "/public/data/invoices.json";
+
 
 app.engine(
   "hbs",
@@ -30,10 +33,27 @@ app.get("/", function(req, res, next) {
   res.render("home");
 });
 
-//Render invoice page
-// app.get("/invoices", function(req, res, next) {
-// 	res.render("invoices");
-// })
+//Render customers page
+
+
+// Render invoice page
+
+
+app.get('/invoices', (req, res) => {
+  const callbackFunction = (error, file) => {
+
+    // we call .toString() to turn the file buffer to a String
+    const fileData = file.toString();
+    // we use JSON.parse to get an object out the String
+    const parsedFile = JSON.parse(fileData);
+    // send the json to the Template to render
+    res.render('invoices', { 
+      objJson: parsedFile
+    });
+  };
+  fs.readFile(invoicesPath, callbackFunction);
+});
+
 
 app.listen(SERVER_PORT, () => {
   console.info(`Server started at http://localhost:${SERVER_PORT}`);
