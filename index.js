@@ -12,6 +12,8 @@ const router = express.Router();
 const invoicesPath = __dirname + "/public/data/invoices.json";
 const customersPath = __dirname + "/public/data/customers.json";
 
+const filePath = `${__dirname}/public/data/reservations.json`;
+
 app.engine(
   "hbs",
   exphbs({
@@ -34,7 +36,7 @@ app.get("/", function(req, res, next) {
 });
 
 //Render customers page
-app.get('/customers', (req, res) => {
+app.get('/customers/', (req, res) => {
   const callbackFunction = (error, file) => {
     // we call .toString() to turn the file buffer to a String
     const fileData = file.toString();
@@ -71,7 +73,7 @@ app.get('/customers/:id', (req,res,next) => {
 // });
 
 // Render invoice page
-app.get('/invoices', (req, res) => {
+app.get('/invoices/:id?', (req, res) => {
   const callbackFunction = (error, file) => {
 
     // we call .toString() to turn the file buffer to a String
@@ -84,6 +86,14 @@ app.get('/invoices', (req, res) => {
     });
   };
   fs.readFile(invoicesPath, callbackFunction);
+});
+
+app.get('/:id', (req,res,next) => {
+	fs.readFile(invoicesPath, (error,file) => {
+		const fileData = file.toString();
+    	const parsedFile = JSON.parse(fileData);
+    	res.render('invoices', {objJson: parsedFile.filter(invoice => invoice.id === parseInt(req.params.id)) });
+	});
 });
 
 			// PUT CODE FOR RENDERING INVOICE ID PAGE HERE
