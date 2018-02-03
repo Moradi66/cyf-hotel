@@ -96,7 +96,24 @@ app.get('/invoices/:id', (req, res, next) => {
 	});
 });
 
-			// PUT CODE FOR RENDERING INVOICE ID PAGE HERE
+      // PUT CODE FOR RENDERING INVOICE ID PAGE HERE
+      
+
+      // var button = select('#submit-btn');
+      // button.mousePressed(submitInvoince);
+
+      // function submitInvoince(){
+      //   var id = select('#id-submit').value();
+      //   var reservationId = select('#reservation-id-submit').value();
+      //   var total = select('#total-submit').value();
+      //   var surcharges = select('#surcharges-submit').value();
+      //   var invoiceDateTime = select('#invoice-date-time-submit').value();
+      //   var paid = select('#paid-submit').value();
+      //   console.log(id)
+      // }
+
+
+      
 
 
 app.listen(SERVER_PORT, () => {
