@@ -18,12 +18,19 @@ router.get("/:id?", (req, res) => {
   }
 });
 
-router.put("/invoice", (req, res) => {
+router.post("/", (req, res) => {
+  // TODO read req.body.invoice
+  res.status(200).json(req.body.invoice);
+});
+
+router.put("/", (req, res) => {
   // TODO read req.query.reservationId and req.body.invoice and insert into DB
-  res.status(200).json({
-    reservationId: req.query.reservationId,
-    invoice: req.body.invoice
-  });
+  res.status(200).json(req.body.invoice);
+});
+
+router.delete("/", (req, res) => {
+  // TODO delete req.body.invoice
+  res.status(200).json(req.body.invoice);
 });
 
 module.exports = router;

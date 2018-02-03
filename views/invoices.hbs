@@ -24,7 +24,7 @@
           <tbody id="rows">
           {{#each objJson}}
             <tr>  
-              <th scope="row"><a href={{ this.id }}>{{ this.id }}</a></th>
+              <th scope="row"><a href="/invoices/{{this.id}}">{{ this.id }}</a></th>
               <td>{{ this.reservationId}}</td>
               <td>{{ this.total }}</td>
               <td>{{ this.surcharges }}</td>

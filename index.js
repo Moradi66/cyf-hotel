@@ -12,7 +12,6 @@ const router = express.Router();
 const invoicesPath = __dirname + "/public/data/invoices.json";
 const customersPath = __dirname + "/public/data/customers.json";
 
-const filePath = `${__dirname}/public/data/reservations.json`;
 
 app.engine(
   "hbs",
@@ -73,7 +72,7 @@ app.get('/customers/:id', (req,res,next) => {
 // });
 
 // Render invoice page
-app.get('/invoices/:id?', (req, res) => {
+app.get('/invoices/', (req, res) => {
   const callbackFunction = (error, file) => {
 
     // we call .toString() to turn the file buffer to a String
@@ -88,8 +87,9 @@ app.get('/invoices/:id?', (req, res) => {
   fs.readFile(invoicesPath, callbackFunction);
 });
 
-app.get('/:id', (req,res,next) => {
-	fs.readFile(invoicesPath, (error,file) => {
+//Render invoices id page
+app.get('/invoices/:id', (req, res, next) => {
+	fs.readFile(invoicesPath, (error, file) => {
 		const fileData = file.toString();
     	const parsedFile = JSON.parse(fileData);
     	res.render('invoices', {objJson: parsedFile.filter(invoice => invoice.id === parseInt(req.params.id)) });

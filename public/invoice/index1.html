@@ -36,7 +36,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>#</th>
               <th>Reservation ID</th>
               <th>Total</th>
               <th>Surcharges</th>
@@ -73,7 +73,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
   <script id="template" type="text/x-handlebars-template">
       <tr>
-        <th scope="row" ><a href={{id}}>{{ id }}</a></th>
+        <th scope="row">{{ id }}</th>
         <td>{{ reservationId}}</td>
         <td>{{ total }}</td>
         <td>{{ surcharges }}</td>
@@ -87,7 +87,7 @@
 
       $.ajax({
         method: 'GET',
-        url: '/api/invoice'
+        url: '/api/invoices/'
       }).done(data => {
         const source = $("#template").html();
         const template = Handlebars.compile(source);
