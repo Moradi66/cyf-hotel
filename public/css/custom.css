@@ -44,6 +44,9 @@
   -webkit-box-flex: 1;
   flex: 1;
 }
+#form{
+  width: 100%;
+}
 @media (min-width: 768px) {
   .flex-md-equal > * {
     -ms-flex: 1;
