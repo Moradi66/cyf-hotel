@@ -79,15 +79,16 @@ app.get('/invoices/:id', (req, res, next) => {
 
 // PUT CODE FOR RENDERING INVOICE ID PAGE HERE
 app.post("/invoices", function(req, res) {
-        if (req.body.id && req.body.reservationId && req.body.total &&  req.body.surcharges && req.body.invoiceDateTime && req.body.paid){
-            fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
-                var parsedFile = JSON.parse(file);
-                parsedFile.push(req.body);
-            fs.writeFile(__dirname +'/public/data/invoices.json', JSON.stringify(parsedFile, null, 2), function(error) {
-          });
-        });
-        }else{}
-    });
+	if (req.body.id && req.body.reservationId && req.body.total &&  req.body.surcharges && req.body.invoiceDateTime){
+	    fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
+	        var parsedFile = JSON.parse(file);
+	        parsedFile.push(req.body);
+	    	fs.writeFile(__dirname +'/public/data/invoices.json', JSON.stringify(parsedFile, null, 2), function(error) {
+	  		});
+	  		res.redirect("/invoices");
+	  	});
+	};
+});
    
        // res.end(JSON.stringify(req.body))
    
