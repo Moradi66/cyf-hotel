@@ -1,18 +1,19 @@
-const SERVER_PORT = process.env.PORT || 8080;
-const express = require("express");
-const exphbs = require("express-handlebars");
-const bodyparser = require("body-parser");
-const fs = require("fs");
-const apiRouter = require("./api");
-const app = express();
-const router = express.Router();
-const invoicesPath = __dirname + "/public/data/invoices.json";
+const SERVER_PORT   = process.env.PORT || 8080;
+const express       = require("express");
+const exphbs        = require("express-handlebars");
+const bodyparser    = require("body-parser");
+const fs            = require("fs");
+const apiRouter     = require("./api");
+const app           = express();
+const router        = express.Router();
+const invoicesPath  = __dirname + "/public/data/invoices.json";
 const customersPath = __dirname + "/public/data/customers.json";
+
 app.engine("hbs", exphbs({
     defaultLayout: "main",
     extname: "hbs"
 }));
-
+app.use(bodyparser());
 app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(express.static("assets"));
@@ -75,36 +76,31 @@ app.get('/invoices/:id', (req, res, next) => {
         });
     });
 });
-
-app.use(bodyparser());
 // PUT CODE FOR RENDERING INVOICE ID PAGE HERE
-app.post("/submit-form", function(req, res) {
-    fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
-        var parsedFile = JSON.parse(file);
-        // console.log(parsedFile)
-      fs.writeFile(__dirname +'/public/data/invoices.json',
-       JSON.stringify(parsedFile, null, 2),
-       function(error) {
-        if (req.body.id){
-                  
+app.post("/invoices", function(req, res) {
+        if (req.body.id && req.body.reservationId && req.body.total &&  req.body.surcharges && req.body.invoiceDateTime){
+            fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
+                var parsedFile = JSON.parse(file);
+                parsedFile.push(req.body);
+                console.log(req.body.id)
+            fs.writeFile(__dirname +'/public/data/invoices.json', JSON.stringify(parsedFile, null, 2), function(error) {
+          });
+        });
+    
         }else{
-            console.log('write down the id');
+            
         }
-      });
     });
-    res.end(JSON.stringify(req.body))
-    // var arr = req.fields
-    // console.log(arr)
-    //    var data = JSON.stringify(arr);
-    // fs.readFile(__dirname + 'public/data/invoices.json', function (error, file) {
-    //     var parsedFile = JSON.parse(file);
-    //    parsedFile = [arr]
-    //     fs.writeFile('public/data/invoices.json',  JSON.stringify(parsedFile), function (error) {        
-    //     });
-    // });
-});
-
+   
+       // res.end(JSON.stringify(req.body))
+   
 
 app.listen(SERVER_PORT, () => {
     console.info(`Server started at http://localhost:${SERVER_PORT}`);
 });
+
+
+
+
+
+// https://programmingmentor.com/post/save-form-nodejs-mongodb/

@@ -11,11 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.15.4",
+    "busboy": "^0.2.14",
+    "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-validator": "^4.3.0",
     "handlebars": "^4.0.11",
-    "knex": "0.13.0"
+    "knex": "0.13.0",
+    "mongodb": "^3.0.2"
   },
   "devDependencies": {
     "faker": "^4.1.0",

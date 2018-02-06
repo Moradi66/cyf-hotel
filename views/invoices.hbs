@@ -4,29 +4,26 @@
         <h1>Customers invoices</h1>
       </div>
     </div>
-
     <!-- add a form here -->
-          <div class="row">
-            <div class="col">
-              </form>
-                <form action="/submit-form" method="POST">
-                  id:<br>
-                  <input type="text" name="id" id="id-submit"><br>
-                  reservation id:<br>
-                  <input type="text" name="reservation id" id="reservation-id-submit"><br>
-                  total:<br>
-                  <input type="text" name="total" id="total-submit"><br>
-                  surcharges:<br>
-                  <input type="text" name="surcharges" id="surcharges-submit"><br>
-                  Invoice Date Time:<br>
-                  <input type="text" name="Invoice Date Time" id="invoice-date-time-submit"><br>
-                  Paid:<br>
-                  <input type="text" name="Paid" id="paid-submit"><br>
-                  <button id="submit-btn" type="submit">submit</button>
-                </form>   
-            </div>
-          </div>
- 
+        <div class="row">
+        <div class="col">
+            <form action="/invoices" method="POST">
+              ID :<br>
+              <input type="number" name="id" id="id-submit"><br>
+              Reservation ID :<br>
+              <input type="number" name="reservationId" id="reservation-id-submit"><br>
+              Total :<br>
+              <input type="text" name="total" id="total-submit"><br>
+              Surcharges :<br>
+              <input type="text" name="surcharges" id="surcharges-submit"><br>
+              Invoice Date Time:<br>
+              <input type="date" name="invoiceDateTime" id="invoice-date-time-submit"><br>
+              Paid : Yes <input type="radio" name="paid" value="true"> No <input type="radio" name="paid" value="false"><br>
+              <button id="submit-btn" type="submit">submit</button>
+              <input type="reset">
+            </form>   
+        </div>
+      </div>
     <div class="row">
       <div class="col">
         <table class="table">
@@ -49,6 +46,7 @@
               <td>{{ this.surcharges }}</td>
               <td>{{ this.invoiceDateTime }}</td>
               <td>{{ this.paid }}</td>
+              <td> <button> edit </button></td>
               <!-- add an edit button here-->
               <!-- add a delete button here -->
             </tr>
