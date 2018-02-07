@@ -51,6 +51,22 @@ app.get('/customers/:id', (req, res, next) => {
     });
 });
 
+app.get('/newcustomer', function(req, res, next){
+    res.render("newcustomer");
+});
+app.post("/customer", function(req, res) {
+	    fs.readFile(__dirname + '/public/data/customers.json', function(error, file) {
+	        var parsedFile = JSON.parse(file);
+	        parsedFile.push(req.body);
+	    	fs.writeFile(__dirname +'/public/data/customers.json', JSON.stringify(parsedFile, null, 2), function(error) {
+	  		});
+	  		res.redirect("/customers");
+	  	});
+});
+
+
+
+
 // Render invoice page
 app.get('/invoices/', (req, res) => {
     const callbackFunction = (error, file) => {
@@ -78,7 +94,7 @@ app.get('/invoices/:id', (req, res, next) => {
 });
 
 // PUT CODE FOR RENDERING INVOICE ID PAGE HERE
-app.post("/invoices", function(req, res) {
+app.post("/invoice", function(req, res) {
 	if (req.body.id && req.body.reservationId && req.body.total &&  req.body.surcharges && req.body.invoiceDateTime){
 	    fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
 	        var parsedFile = JSON.parse(file);
@@ -89,6 +105,11 @@ app.post("/invoices", function(req, res) {
 	  	});
 	};
 });
+
+app.get('/newinvoice', function(req, res, next){
+    res.render("newinvoice");
+});
+
    
        // res.end(JSON.stringify(req.body))
    

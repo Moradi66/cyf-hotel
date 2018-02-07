@@ -2,28 +2,10 @@
     <div class="row">
       <div class="col-10">
         <h1>Customers invoices</h1>
+        <button><a href="/newinvoice">Add New Invoices</a></button>
       </div>
     </div>
     <!-- add a form here -->
-        <div class="row">
-        <div class="col">
-            <form action="/invoices" method="POST">
-              ID :<br>
-              <input type="number" name="id" id="id-submit" required><br>
-              Reservation ID :<br>
-              <input type="number" name="reservationId" id="reservation-id-submit" required><br>
-              Total :<br>
-              <input type="text" name="total" id="total-submit" required><br>
-              Surcharges :<br>
-              <input type="text" name="surcharges" id="surcharges-submit"  required><br>
-              Invoice Date Time:<br>
-              <input type="date" name="invoiceDateTime" id="invoice-date-time-submit" required><br>
-              Paid : Yes <input type="radio" name="paid" value="true"  required> No <input type="radio" name="paid" value="false"  required><br>
-              <button id="submit-btn" type="submit" >submit</button>
-              <input type="reset">
-            </form>   
-        </div>
-      </div>
     <div class="row">
       <div class="col">
         <table class="table">
