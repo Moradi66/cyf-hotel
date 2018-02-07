@@ -1,14 +1,13 @@
-const SERVER_PORT   = process.env.PORT || 8080;
-const express       = require("express");
-const exphbs        = require("express-handlebars");
-const bodyparser    = require("body-parser");
-const fs            = require("fs");
-const apiRouter     = require("./api");
-const app           = express();
-const router        = express.Router();
-const invoicesPath  = __dirname + "/public/data/invoices.json";
+const SERVER_PORT = process.env.PORT || 8080;
+const express = require("express");
+const exphbs = require("express-handlebars");
+const bodyparser = require("body-parser");
+const fs = require("fs");
+const apiRouter = require("./api");
+const app = express();
+const router = express.Router();
+const invoicesPath = __dirname + "/public/data/invoices.json";
 const customersPath = __dirname + "/public/data/customers.json";
-
 app.engine("hbs", exphbs({
     defaultLayout: "main",
     extname: "hbs"
@@ -18,13 +17,11 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(express.static("assets"));
 app.use("/api", apiRouter);
-
 // handle HTTP POST requests
 app.use(bodyparser.json());
 app.get("/", function(req, res, next) {
     res.render("home");
 });
-
 //Render customers page
 app.get('/customers/', (req, res) => {
     const callbackFunction = (error, file) => {
@@ -39,7 +36,6 @@ app.get('/customers/', (req, res) => {
     };
     fs.readFile(customersPath, callbackFunction);
 });
-
 //Render customers id page
 app.get('/customers/:id', (req, res, next) => {
     fs.readFile(customersPath, (error, file) => {
@@ -50,23 +46,17 @@ app.get('/customers/:id', (req, res, next) => {
         });
     });
 });
-
-app.get('/newcustomer', function(req, res, next){
+app.get('/newcustomer', function(req, res, next) {
     res.render("newcustomer");
 });
 app.post("/customer", function(req, res) {
-	    fs.readFile(__dirname + '/public/data/customers.json', function(error, file) {
-	        var parsedFile = JSON.parse(file);
-	        parsedFile.push(req.body);
-	    	fs.writeFile(__dirname +'/public/data/customers.json', JSON.stringify(parsedFile, null, 2), function(error) {
-	  		});
-	  		res.redirect("/customers");
-	  	});
+    fs.readFile(__dirname + '/public/data/customers.json', function(error, file) {
+        var parsedFile = JSON.parse(file);
+        parsedFile.splice(0, 0, req.body);
+        fs.writeFile(__dirname + '/public/data/customers.json', JSON.stringify(parsedFile, null, 2), function(error) {});
+        res.redirect("/customers");
+    });
 });
-
-
-
-
 // Render invoice page
 app.get('/invoices/', (req, res) => {
     const callbackFunction = (error, file) => {
@@ -81,7 +71,6 @@ app.get('/invoices/', (req, res) => {
     };
     fs.readFile(invoicesPath, callbackFunction);
 });
-
 //Render invoices id page
 app.get('/invoices/:id', (req, res, next) => {
     fs.readFile(invoicesPath, (error, file) => {
@@ -92,34 +81,23 @@ app.get('/invoices/:id', (req, res, next) => {
         });
     });
 });
-
 // PUT CODE FOR RENDERING INVOICE ID PAGE HERE
 app.post("/invoice", function(req, res) {
-	if (req.body.id && req.body.reservationId && req.body.total &&  req.body.surcharges && req.body.invoiceDateTime){
-	    fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
-	        var parsedFile = JSON.parse(file);
-	        parsedFile.push(req.body);
-	    	fs.writeFile(__dirname +'/public/data/invoices.json', JSON.stringify(parsedFile, null, 2), function(error) {
-	  		});
-	  		res.redirect("/invoices");
-	  	});
-	};
+    if (req.body.id && req.body.reservationId && req.body.total && req.body.surcharges && req.body.invoiceDateTime) {
+        fs.readFile(__dirname + '/public/data/invoices.json', function(error, file) {
+            var parsedFile = JSON.parse(file);
+            // parsedFile.push(req.body);
+            parsedFile.splice(0, 0, req.body);
+            fs.writeFile(__dirname + '/public/data/invoices.json', JSON.stringify(parsedFile, null, 2), function(error) {});
+            res.redirect("/invoices");
+        });
+    };
 });
-
-app.get('/newinvoice', function(req, res, next){
+app.get('/newinvoice', function(req, res, next) {
     res.render("newinvoice");
 });
-
-   
-       // res.end(JSON.stringify(req.body))
-   
-
+// res.end(JSON.stringify(req.body))
 app.listen(SERVER_PORT, () => {
     console.info(`Server started at http://localhost:${SERVER_PORT}`);
 });
-
-
-
-
-
 // https://programmingmentor.com/post/save-form-nodejs-mongodb/
